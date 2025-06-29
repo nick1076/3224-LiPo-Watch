@@ -1,0 +1,6 @@
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Change Net Name : Old Net Name=NetP3_3 New Net Name=SCL
+Change Net Name : Old Net Name=NetP3_4 New Net Name=SDA
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=Microcontroller Member=Component SW3 EVQ-9P701P
