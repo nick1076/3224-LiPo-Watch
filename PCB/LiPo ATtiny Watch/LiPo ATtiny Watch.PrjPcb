@@ -1125,7 +1125,15 @@ Net2=NetName=BAT_VCC|NetColor=$000083FD
 Net3=NetName=BUCK_IN|NetColor=$006EFF6E
 Net4=NetName=EXT_5V0|NetColor=$000083FD
 Net5=NetName=GND|NetColor=$00575860
-Net6=NetName=USB_VCC|NetColor=$006E6EFF
+Net6=NetName=NetP1_2|NetColor=$006EA300
+Net7=NetName=NetP3_3|NetColor=$006EA300
+Net8=NetName=NetP3_4|NetColor=$006EA300
+Net9=NetName=NetU4_15|NetColor=$006EA300
+Net10=NetName=NetU4_16|NetColor=$006EA300
+Net11=NetName=SCL|NetColor=$006EA300
+Net12=NetName=SDA|NetColor=$006EA300
+Net13=NetName=UPDI|NetColor=$006EA300
+Net14=NetName=USB_VCC|NetColor=$006E6EFF
 
 [Comparison Options]
 ComparisonOptions0=Kind=Net|MinPercent=75|MinMatch=3|ShowMatch=0|UseName=-1|InclAllRules=0
