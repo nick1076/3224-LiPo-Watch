@@ -1,0 +1,830 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD25\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">7/2/2025</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">1:33:48 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc" class="file"><acronym title="C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc">C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">154</td></tr>
+</table>
+</td>
+</table><a name="IDA4YW4FF4HELQDIDXPRXN5UNVGH050RRLT3K4MSIX12XQJXZINFKL"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLXTLVYEDMKGFFQIZKOUGIXBNSHV4OYGL5UKQNBGGTCHAKCSHSYQI">Clearance Constraint (Gap=0.127mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5MICVN0VW0U3P4K5OHHXNYNE4MRCN4GXBCJDXNUCLPHXIVD3MFM">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5D1SSKH2H1PXBUOFBNSJFFORAHKVGUYN4RORVZAEQTJYDZGZFGM">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">148</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZQ50O3ZGOASKNV0OZZY4IDZHRIXTZ4CLTDI4ZLOOXHZOLPT1WOL">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXKIHFL3IBZJRPBID1CS34AUX4L33E1MDOVPVTWUHUDYXJEBLSNF">Width Constraint (Min=0.305mm) (Max=25.4mm) (Preferred=0.305mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDEN153KIURJALLOZFSYFE0QVZDLVU4W5KY4PO5OCEIKNGLC05RWXN">Width Constraint (Min=0.127mm) (Max=25.4mm) (Preferred=0.127mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNMO01EGSIBOKMUDQTVZHJJAPTEOW2Z53LCXJZRFUEWWQIZG2CYQG">Width Constraint (Min=0.508mm) (Max=25.4mm) (Preferred=0.508mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQWUDWDNHG1XTERI0HNUPRXC3NMKPTW2AFK0JGTURYNES3B3W5RH">Width Constraint (Min=0.254mm) (Max=25.4mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID42ZYDKDW3L3YOFBNW3MCV3KG1BNTO301QEQALKIA2SZO43J4ESZE">Width Constraint (Min=0.152mm) (Max=25.4mm) (Preferred=0.152mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDP0JBO4LTFJD1EWEGJZP45XWEBJ5DVWOYT4EYKYGCCQOHCGZGOQO">Routing Topology Rule(Topology=Shortest) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL0WGXSHDU4KZDNU2T15B4ZOHTM32EICMOYU24BDTX5T2U3EXG3ZK">Power Plane Connect Rule(Relief Connect )(Expansion=0.3mm) (Conductor Width=0.127mm) (Air Gap=0.127mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTI5CS1SPPJAWOKJDGLD2ZVMQ0LOZVKARDF2BXDMOWZ4K02D340IC">Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (InPadClass('PowerPads'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQ4FGPWIS5JNMIZMQ4QNATR25TBIB5IFF42ZODLOUJRDIAYXISPXL">Minimum Annular Ring (Minimum=0.152mm) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVV3CSXOVIBXNJPKK3Y4VJJ0PALTGYBTCYRG1OLMX2XV01ZQC1SKF">Hole Size Constraint (Min=0.3mm) (Max=6.3mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIYCTMOKDT3BQDYGVZTTM4BFISOLEXA0Q5E3PT2DFIXX3LEUQOZU">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJI01RXRWFCFKBTMH3IRAC1GNQEG04JUNQ11X3ZOVQLSZMRL3EFBP">Minimum Solder Mask Sliver (Gap=0.152mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDP2OLBVW5S1PIDNIMDJU1IX23MJD2JFF3OYR5IHCMMXSZ14C5FPBF">Silk To Solder Mask (Clearance=0.127mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDK0AGEX2G4SWSFDSKVHEAGEDLYN34NCMCNOXFCCEPXO3EEL0PLEHD">Silk to Silk (Clearance=0.127mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUMUGK5MCDRSYLMTCRETBRK5ELDMPVZADVAZ25MCG4WJ4OOFC13AM">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID1G5IZY3T5WJUMTS1KCHIK4B00J2K2XKC542S2JZQPEL3RICO4N">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXFXJLSVCC4LSMI0NBIQ2EVWN2BWZQHMZISSC2NGNUHT0KNF0O4P">Height Constraint (Min=0mm) (Max=1816.048mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">154</td>
+</tr>
+</table><br><a name="ID5D1SSKH2H1PXBUOFBNSJFFORAHKVGUYN4RORVZAEQTJYDZGZFGM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7510.465mil|Location1.Y=3612.528mil|Location2.Y=3775.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7510.465mil|Location1.Y=3612.528mil|Location2.Y=3775.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-1(189.327mm,94.996mm) on Top Layer And Pad C10-1(189.865mm,92.359mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7510.465mil|Location1.Y=3514.535mil|Location2.Y=3659.835mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7510.465mil|Location1.Y=3514.535mil|Location2.Y=3659.835mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-1(189.327mm,90.17mm) on Bottom Layer And Pad C10-1(189.865mm,92.359mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7439.535mil|Location2.X=7579.835mil|Location1.Y=3510.165mil|Location2.Y=3585.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7439.535mil|Location2.X=7579.835mil|Location1.Y=3510.165mil|Location2.Y=3585.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C10-2(189.865mm,89.759mm) on Top Layer And Pad C9-2(191.927mm,90.17mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7366.504mil|Location2.X=7510.465mil|Location1.Y=3406.504mil|Location2.Y=3557.472mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7366.504mil|Location2.X=7510.465mil|Location1.Y=3406.504mil|Location2.Y=3557.472mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad P3-3(187.96mm,87.376mm) on Multi-Layer And Pad C10-2(189.865mm,89.759mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7204.102mil|Location2.X=7510.465mil|Location1.Y=3510.165mil|Location2.Y=3608.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7204.102mil|Location2.X=7510.465mil|Location1.Y=3510.165mil|Location2.Y=3608.496mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R14-2(183.46mm,90.805mm) on Top Layer And Pad C10-2(189.865mm,89.759mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918mil|Location2.X=7025.701mil|Location1.Y=2624.535mil|Location2.Y=2842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918mil|Location2.X=7025.701mil|Location1.Y=2624.535mil|Location2.Y=2842mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-8(177.038mm,70.866mm) on Bottom Layer And Pad C1-1(177.927mm,67.564mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6984.299mil|Location2.X=7128.732mil|Location1.Y=2624.535mil|Location2.Y=2773.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6984.299mil|Location2.X=7128.732mil|Location1.Y=2624.535mil|Location2.Y=2773.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C1-1(177.927mm,67.564mm) on Top Layer And Pad R12-1(180.594mm,69.596mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7053mil|Location2.X=7157mil|Location1.Y=2624.535mil|Location2.Y=3132mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7053mil|Location2.X=7157mil|Location1.Y=2624.535mil|Location2.Y=3132mil|Absolute=True">Un-Routed Net Constraint: Net BAT_VCC Between Pad Free-8(180.467mm,78.232mm) on Bottom Layer And Pad C1-2(180.727mm,67.564mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7094.535mil|Location2.X=7217.399mil|Location1.Y=2624.535mil|Location2.Y=2695.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7094.535mil|Location2.X=7217.399mil|Location1.Y=2624.535mil|Location2.Y=2695.465mil|Absolute=True">Un-Routed Net Constraint: Net BAT_VCC Between Pad C1-2(180.727mm,67.564mm) on Top Layer And Pad U2-3(182.653mm,67.757mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.891mil|Location2.X=7881.811mil|Location1.Y=2647.52mil|Location2.Y=2676.959mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.891mil|Location2.X=7881.811mil|Location1.Y=2647.52mil|Location2.Y=2676.959mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C2-1(197.993mm,67.718mm) on Top Layer And Pad R6-2(199.898mm,67.547mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.109mil|Location1.Y=2655.143mil|Location2.Y=2690.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.109mil|Location1.Y=2655.143mil|Location2.Y=2690.551mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad U1-6(196.342mm,68.215mm) on Top Layer And Pad C2-1(197.993mm,67.718mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.699mil|Location2.X=7804.301mil|Location1.Y=2683.041mil|Location2.Y=2754.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.699mil|Location2.X=7804.301mil|Location1.Y=2683.041mil|Location2.Y=2754.216mil|Absolute=True">Un-Routed Net Constraint: Net FB Between Pad C2-2(197.993mm,68.426mm) on Top Layer And Pad R11-2(197.993mm,69.723mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.891mil|Location2.X=7881.811mil|Location1.Y=2683.041mil|Location2.Y=2712.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.891mil|Location2.X=7881.811mil|Location1.Y=2683.041mil|Location2.Y=2712.48mil|Absolute=True">Un-Routed Net Constraint: Net FB Between Pad C2-2(197.993mm,68.426mm) on Top Layer And Pad R6-1(199.898mm,68.597mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7600.699mil|Location2.X=7694.173mil|Location1.Y=2564.951mil|Location2.Y=2631.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7600.699mil|Location2.X=7694.173mil|Location1.Y=2564.951mil|Location2.Y=2631.575mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R9-1(193.294mm,65.384mm) on Top Layer And Pad C3-1(194.957mm,66.167mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7656.772mil|Location2.X=7694.173mil|Location1.Y=2578.425mil|Location2.Y=2690.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7656.772mil|Location2.X=7694.173mil|Location1.Y=2578.425mil|Location2.Y=2690.551mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C3-1(194.957mm,66.167mm) on Top Layer And Pad U1-5(195.092mm,68.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7644.102mil|Location2.X=7785.898mil|Location1.Y=2369.102mil|Location2.Y=2631.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7644.102mil|Location2.X=7785.898mil|Location1.Y=2369.102mil|Location2.Y=2631.575mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-7(195.961mm,61.976mm) on Multi-Layer And Pad C3-2(196.457mm,66.167mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7715.827mil|Location2.X=7753.228mil|Location1.Y=2578.425mil|Location2.Y=2749.606mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7715.827mil|Location2.X=7753.228mil|Location1.Y=2578.425mil|Location2.Y=2749.606mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-9(196.342mm,69.715mm) on Top Layer And Pad C3-2(196.457mm,66.167mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7240.898mil|Location1.Y=2369.102mil|Location2.Y=2615.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7240.898mil|Location1.Y=2369.102mil|Location2.Y=2615.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-1(180.845mm,65.532mm) on Top Layer And Pad Free-7(182.118mm,61.976mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7091.268mil|Location2.X=7140.583mil|Location1.Y=2544.535mil|Location2.Y=2773.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7091.268mil|Location2.X=7140.583mil|Location1.Y=2544.535mil|Location2.Y=2773.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R12-1(180.594mm,69.596mm) on Top Layer And Pad C4-1(180.845mm,65.532mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7209.417mil|Location2.X=7497mil|Location1.Y=2493mil|Location2.Y=2615.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7209.417mil|Location2.X=7497mil|Location1.Y=2493mil|Location2.Y=2615.465mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad C4-2(183.645mm,65.532mm) on Top Layer And Pad Free-8(189.103mm,64.643mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7209.417mil|Location2.X=7305.29mil|Location1.Y=2544.535mil|Location2.Y=2678.976mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7209.417mil|Location2.X=7305.29mil|Location1.Y=2544.535mil|Location2.Y=2678.976mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad C4-2(183.645mm,65.532mm) on Top Layer And Pad U2-4(184.885mm,67.757mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7644.643mil|Location2.X=7693.583mil|Location1.Y=2759.449mil|Location2.Y=2864.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7644.643mil|Location2.X=7693.583mil|Location1.Y=2759.449mil|Location2.Y=2864.924mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad C5-1(194.778mm,72.263mm) on Top Layer And Pad U1-1(195.092mm,70.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7548.433mil|Location2.X=7755.357mil|Location1.Y=2825.076mil|Location2.Y=2933.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7548.433mil|Location2.X=7755.357mil|Location1.Y=2825.076mil|Location2.Y=2933.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R2-1(192.206mm,73.66mm) on Top Layer And Pad C5-2(196.382mm,72.263mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7707.782mil|Location2.X=7755.357mil|Location1.Y=2759.449mil|Location2.Y=2864.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7707.782mil|Location2.X=7755.357mil|Location1.Y=2759.449mil|Location2.Y=2864.924mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-10(196.342mm,70.215mm) on Top Layer And Pad C5-2(196.382mm,72.263mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=2825.076mil|Location2.Y=3078.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=2825.076mil|Location2.Y=3078.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-9(196.237mm,77.851mm) on Bottom Layer And Pad C5-2(196.382mm,72.263mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7578.819mil|Location1.Y=3704.535mil|Location2.Y=3858.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7578.819mil|Location1.Y=3704.535mil|Location2.Y=3858.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-1(189.327mm,94.996mm) on Top Layer And Pad C7-2(192.027mm,97.155mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7477.472mil|Location1.Y=3704.535mil|Location2.Y=3790.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7477.472mil|Location1.Y=3704.535mil|Location2.Y=3790.63mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-14(186.026mm,96.057mm) on Bottom Layer And Pad C6-1(189.327mm,94.996mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7532.528mil|Location2.X=7579.835mil|Location1.Y=3514.535mil|Location2.Y=3775.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7532.528mil|Location2.X=7579.835mil|Location1.Y=3514.535mil|Location2.Y=3775.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C9-2(191.927mm,90.17mm) on Bottom Layer And Pad C6-2(191.927mm,94.996mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7584.685mil|Location1.Y=3704.535mil|Location2.Y=3790.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7584.685mil|Location1.Y=3704.535mil|Location2.Y=3790.63mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad U3-1(191.926mm,96.057mm) on Bottom Layer And Pad C6-2(191.927mm,94.996mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7229.299mil|Location2.X=7468.583mil|Location1.Y=3791.535mil|Location2.Y=3858.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7229.299mil|Location2.X=7468.583mil|Location1.Y=3791.535mil|Location2.Y=3858.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad D11-2(184.15mm,97.46mm) on Bottom Layer And Pad C7-1(189.227mm,97.155mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.504mil|Location2.X=7468.583mil|Location1.Y=3738.433mil|Location2.Y=3858.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.504mil|Location2.X=7468.583mil|Location1.Y=3738.433mil|Location2.Y=3858.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R13-2(187.706mm,95.432mm) on Top Layer And Pad C7-1(189.227mm,97.155mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7431.181mil|Location2.X=7584.685mil|Location1.Y=3772.914mil|Location2.Y=3858.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7431.181mil|Location2.X=7584.685mil|Location1.Y=3772.914mil|Location2.Y=3858.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C7-1(189.227mm,97.155mm) on Top Layer And Pad U3-1(191.926mm,96.057mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7541.417mil|Location2.X=7790.898mil|Location1.Y=3791.535mil|Location2.Y=4090.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7541.417mil|Location2.X=7790.898mil|Location1.Y=3791.535mil|Location2.Y=4090.898mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-2(192.027mm,97.155mm) on Top Layer And Pad Free-7(196.088mm,102.108mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7880.165mil|Location2.X=8008.417mil|Location1.Y=3324.535mil|Location2.Y=3507.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7880.165mil|Location2.X=8008.417mil|Location1.Y=3324.535mil|Location2.Y=3507.945mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C8-1(200.757mm,85.344mm) on Top Layer And Pad SW1-L2(203.013mm,88.501mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7927.472mil|Location1.Y=3301.189mil|Location2.Y=3395.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7927.472mil|Location1.Y=3301.189mil|Location2.Y=3395.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-14(196.237mm,84.201mm) on Bottom Layer And Pad C8-1(200.757mm,85.344mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7886.937mil|Location2.X=8029.835mil|Location1.Y=3324.535mil|Location2.Y=3478.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7886.937mil|Location2.X=8029.835mil|Location1.Y=3324.535mil|Location2.Y=3478.496mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R21-2(200.804mm,87.503mm) on Top Layer And Pad C8-2(203.357mm,85.344mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7982.528mil|Location2.X=8131.409mil|Location1.Y=3324.535mil|Location2.Y=3395.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7982.528mil|Location2.X=8131.409mil|Location1.Y=3324.535mil|Location2.Y=3395.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C8-2(203.357mm,85.344mm) on Top Layer And Pad U4-2(205.337mm,85.471mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7693.465mil|Location1.Y=3514.535mil|Location2.Y=3608.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7430.165mil|Location2.X=7693.465mil|Location1.Y=3514.535mil|Location2.Y=3608.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C9-1(189.327mm,90.17mm) on Bottom Layer And Pad P2-4(194.437mm,90.678mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7266.504mil|Location2.X=7477.472mil|Location1.Y=3406.504mil|Location2.Y=3585.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7266.504mil|Location2.X=7477.472mil|Location1.Y=3406.504mil|Location2.Y=3585.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P3-4(185.42mm,87.376mm) on Multi-Layer And Pad C9-1(189.327mm,90.17mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7532.528mil|Location2.X=7831.252mil|Location1.Y=3460.638mil|Location2.Y=3585.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7532.528mil|Location2.X=7831.252mil|Location1.Y=3460.638mil|Location2.Y=3585.465mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad C9-2(191.927mm,90.17mm) on Bottom Layer And Pad SW1-L1(198.513mm,88.501mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7989.496mil|Location2.X=8048.614mil|Location1.Y=2951.504mil|Location2.Y=3043.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7989.496mil|Location2.X=8048.614mil|Location1.Y=2951.504mil|Location2.Y=3043.496mil|Absolute=True">Un-Routed Net Constraint: Net NetD10_1 Between Pad R16-1(203.509mm,75.819mm) on Bottom Layer And Pad D10-1(203.684mm,76.454mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7871.386mil|Location2.X=7930.504mil|Location1.Y=2976.504mil|Location2.Y=3308.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7871.386mil|Location2.X=7930.504mil|Location1.Y=2976.504mil|Location2.Y=3308.496mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad D10-2(200.684mm,76.454mm) on Top Layer And Pad R20-2(200.732mm,83.185mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7858.189mil|Location2.X=7930.504mil|Location1.Y=2647.52mil|Location2.Y=3043.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7858.189mil|Location2.X=7930.504mil|Location1.Y=2647.52mil|Location2.Y=3043.496mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R6-2(199.898mm,67.547mm) on Top Layer And Pad D10-2(200.684mm,76.454mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7307.48mil|Location2.X=7380.787mil|Location1.Y=2705.866mil|Location2.Y=2908.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7307.48mil|Location2.X=7380.787mil|Location1.Y=2705.866mil|Location2.Y=2908.071mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad D1-1(186.46mm,73.025mm) on Top Layer And Pad Q1-2(187.071mm,69.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7307.48mil|Location2.X=7423.819mil|Location1.Y=2841.929mil|Location2.Y=3083.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7307.48mil|Location2.X=7423.819mil|Location1.Y=2841.929mil|Location2.Y=3083.386mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad D1-1(186.46mm,73.025mm) on Top Layer And Pad Q2-2(188.079mm,77.917mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7229.299mil|Location2.X=7270.898mil|Location1.Y=3616.504mil|Location2.Y=3732.709mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7229.299mil|Location2.X=7270.898mil|Location1.Y=3616.504mil|Location2.Y=3732.709mil|Absolute=True">Un-Routed Net Constraint: Net UPDI Between Pad D11-1(184.15mm,94.31mm) on Bottom Layer And Pad R17-1(184.205mm,92.71mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7166.535mil|Location2.X=7401.693mil|Location1.Y=2776.22mil|Location2.Y=2908.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7166.535mil|Location2.X=7401.693mil|Location1.Y=2776.22mil|Location2.Y=2908.071mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad D1-2(182.88mm,73.025mm) on Top Layer And Pad D4-2(187.703mm,70.866mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7989.496mil|Location2.X=8048.614mil|Location1.Y=2786.504mil|Location2.Y=2878.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7989.496mil|Location2.X=8048.614mil|Location1.Y=2786.504mil|Location2.Y=2878.496mil|Absolute=True">Un-Routed Net Constraint: Net NetD12_1 Between Pad R18-1(203.509mm,71.628mm) on Bottom Layer And Pad D12-1(203.684mm,72.263mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7516.929mil|Location2.X=7930.504mil|Location1.Y=2777.008mil|Location2.Y=2878.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7516.929mil|Location2.X=7930.504mil|Location1.Y=2777.008mil|Location2.Y=2878.496mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad D2-2(191.77mm,71.386mm) on Top Layer And Pad D12-2(200.684mm,72.263mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7988.551mil|Location2.X=8047.669mil|Location1.Y=2871.504mil|Location2.Y=2963.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7988.551mil|Location2.X=8047.669mil|Location1.Y=2871.504mil|Location2.Y=2963.496mil|Absolute=True">Un-Routed Net Constraint: Net NetD13_1 Between Pad R19-1(203.509mm,73.787mm) on Bottom Layer And Pad D13-1(203.66mm,74.422mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7378.071mil|Location2.X=7929.559mil|Location1.Y=2776.22mil|Location2.Y=2963.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7378.071mil|Location2.X=7929.559mil|Location1.Y=2776.22mil|Location2.Y=2963.496mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad D4-2(187.703mm,70.866mm) on Top Layer And Pad D13-2(200.66mm,74.422mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7386.614mil|Location2.X=7583.071mil|Location1.Y=2636.063mil|Location2.Y=2702.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7386.614mil|Location2.X=7583.071mil|Location1.Y=2636.063mil|Location2.Y=2702.992mil|Absolute=True">Un-Routed Net Constraint: Net NetD2_1 Between Pad Q1-3(188.021mm,67.445mm) on Top Layer And Pad D2-1(191.77mm,67.806mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7393mil|Location2.X=7583.071mil|Location1.Y=2493mil|Location2.Y=2843.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7393mil|Location2.X=7583.071mil|Location1.Y=2493mil|Location2.Y=2843.937mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad Free-8(189.103mm,64.643mm) on Top Layer And Pad D2-2(191.77mm,71.386mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7385.551mil|Location2.X=7493.779mil|Location1.Y=3126.614mil|Location2.Y=3159.252mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7385.551mil|Location2.X=7493.779mil|Location1.Y=3126.614mil|Location2.Y=3159.252mil|Absolute=True">Un-Routed Net Constraint: Net Q3Gate Between Pad Q2-1(188.079mm,79.817mm) on Bottom Layer And Pad D3-1(189.992mm,79.945mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7378.071mil|Location2.X=7493.779mil|Location1.Y=2776.22mil|Location2.Y=3214.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7378.071mil|Location2.X=7493.779mil|Location1.Y=2776.22mil|Location2.Y=3214.37mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad D4-2(187.703mm,70.866mm) on Top Layer And Pad D3-2(189.992mm,81.345mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7466.221mil|Location2.X=7688.496mil|Location1.Y=3190.748mil|Location2.Y=3903.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7466.221mil|Location2.X=7688.496mil|Location1.Y=3190.748mil|Location2.Y=3903.496mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad D3-2(189.992mm,81.345mm) on Bottom Layer And Pad P2-1(194.437mm,98.298mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7424.016mil|Location2.X=7456.811mil|Location1.Y=2705.866mil|Location2.Y=2803.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7424.016mil|Location2.X=7456.811mil|Location1.Y=2705.866mil|Location2.Y=2803.78mil|Absolute=True">Un-Routed Net Constraint: Net Q2Gate Between Pad Q1-1(188.971mm,69.215mm) on Top Layer And Pad D4-1(189.103mm,70.866mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7433.189mil|Location2.X=7481.567mil|Location1.Y=2776.22mil|Location2.Y=2933.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7433.189mil|Location2.X=7481.567mil|Location1.Y=2776.22mil|Location2.Y=2933.496mil|Absolute=True">Un-Routed Net Constraint: Net Q2Gate Between Pad D4-1(189.103mm,70.866mm) on Top Layer And Pad R2-2(189.556mm,73.66mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7175.748mil|Location2.X=7308.496mil|Location1.Y=3219.102mil|Location2.Y=3273.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7175.748mil|Location2.X=7308.496mil|Location1.Y=3219.102mil|Location2.Y=3273.78mil|Absolute=True">Un-Routed Net Constraint: Net Q1Gate Between Pad D5-1(182.564mm,82.804mm) on Bottom Layer And Pad R5-2(184.785mm,82.241mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6968.701mil|Location2.X=7144.252mil|Location1.Y=3246.22mil|Location2.Y=3336.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6968.701mil|Location2.X=7144.252mil|Location1.Y=3246.22mil|Location2.Y=3336.299mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad J1-A4-B9(177.58mm,84.442mm) on Top Layer And Pad D5-2(181.164mm,82.804mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6821.386mil|Location2.X=6880.504mil|Location1.Y=2946.504mil|Location2.Y=3013.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6821.386mil|Location2.X=6880.504mil|Location1.Y=2946.504mil|Location2.Y=3013.496mil|Absolute=True">Un-Routed Net Constraint: Net NetD6_1 Between Pad D6-1(174.014mm,75.692mm) on Top Layer And Pad R8-2(174.189mm,75.692mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=6998.614mil|Location1.Y=2866.504mil|Location2.Y=3013.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=6998.614mil|Location1.Y=2866.504mil|Location2.Y=3013.496mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad D7-2(177.014mm,73.66mm) on Top Layer And Pad D6-2(177.014mm,75.692mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=7013.976mil|Location1.Y=2946.504mil|Location2.Y=3147.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=7013.976mil|Location1.Y=2946.504mil|Location2.Y=3147.323mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad D6-2(177.014mm,75.692mm) on Top Layer And Pad J1-B4-A9(177.58mm,79.642mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6821.386mil|Location2.X=6980.898mil|Location1.Y=2866.504mil|Location2.Y=2933.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6821.386mil|Location2.X=6980.898mil|Location1.Y=2866.504mil|Location2.Y=2933.496mil|Absolute=True">Un-Routed Net Constraint: Net NetD7_1 Between Pad D7-1(174.014mm,73.66mm) on Top Layer And Pad R10-1(176.839mm,73.66mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=7305.29mil|Location1.Y=2656.221mil|Location2.Y=2933.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6939.496mil|Location2.X=7305.29mil|Location1.Y=2656.221mil|Location2.Y=2933.496mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad D7-2(177.014mm,73.66mm) on Top Layer And Pad U2-4(184.885mm,67.757mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6986.937mil|Location2.X=7024.402mil|Location1.Y=2706.504mil|Location2.Y=2838.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6986.937mil|Location2.X=7024.402mil|Location1.Y=2706.504mil|Location2.Y=2838.78mil|Absolute=True">Un-Routed Net Constraint: Net Q4Gate Between Pad R12-2(177.944mm,69.596mm) on Top Layer And Pad D8-1(177.989mm,71.755mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6943.433mil|Location2.X=7074.37mil|Location1.Y=2811.22mil|Location2.Y=3013.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6943.433mil|Location2.X=7074.37mil|Location1.Y=2811.22mil|Location2.Y=3013.496mil|Absolute=True">Un-Routed Net Constraint: Net STAT Between Pad R8-1(176.839mm,75.692mm) on Bottom Layer And Pad D8-2(179.389mm,71.755mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7050.748mil|Location2.X=7217.399mil|Location1.Y=2731.024mil|Location2.Y=2838.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7050.748mil|Location2.X=7217.399mil|Location1.Y=2731.024mil|Location2.Y=2838.78mil|Absolute=True">Un-Routed Net Constraint: Net STAT Between Pad D8-2(179.389mm,71.755mm) on Top Layer And Pad U2-1(182.653mm,69.657mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7126.504mil|Location2.X=7338.496mil|Location1.Y=3548.433mil|Location2.Y=3943.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7126.504mil|Location2.X=7338.496mil|Location1.Y=3548.433mil|Location2.Y=3943.614mil|Absolute=True">Un-Routed Net Constraint: Net NetD9_1 Between Pad R15-2(181.864mm,90.606mm) on Bottom Layer And Pad D9-1(185.547mm,99.417mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7271.504mil|Location2.X=7352.402mil|Location1.Y=3696.142mil|Location2.Y=3825.504mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7271.504mil|Location2.X=7352.402mil|Location1.Y=3696.142mil|Location2.Y=3825.504mil|Absolute=True">Un-Routed Net Constraint: Net BUILTIN Between Pad D9-2(185.547mm,96.417mm) on Top Layer And Pad U3-11(186.026mm,94.107mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7240.898mil|Location1.Y=3793mil|Location2.Y=4090.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7240.898mil|Location1.Y=3793mil|Location2.Y=4090.898mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-7(182.118mm,102.108mm) on Multi-Layer And Pad Free-8(182.499mm,97.663mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7328.496mil|Location1.Y=2369.102mil|Location2.Y=2526.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7099.102mil|Location2.X=7328.496mil|Location1.Y=2369.102mil|Location2.Y=2526.567mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-7(182.118mm,61.976mm) on Multi-Layer And Pad R7-1(185.293mm,63.699mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7508mil|Location2.X=7785.898mil|Location1.Y=2369.102mil|Location2.Y=2552mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7508mil|Location2.X=7785.898mil|Location1.Y=2369.102mil|Location2.Y=2552mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-8(192.024mm,63.5mm) on Bottom Layer And Pad Free-7(195.961mm,61.976mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6883mil|Location2.X=7018.976mil|Location1.Y=3371.457mil|Location2.Y=3552mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6883mil|Location2.X=7018.976mil|Location1.Y=3371.457mil|Location2.Y=3552mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-8(176.149mm,88.9mm) on Bottom Layer And Pad J1-1(177.005mm,86.362mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6883mil|Location2.X=6987mil|Location1.Y=3448mil|Location2.Y=3664.825mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6883mil|Location2.X=6987mil|Location1.Y=3448mil|Location2.Y=3664.825mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW3-1(175.834mm,92.11mm) on Top Layer And Pad Free-8(176.149mm,88.9mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7022mil|Location1.Y=2738mil|Location2.Y=2845.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7022mil|Location1.Y=2738mil|Location2.Y=2845.189mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q4-2(176.145mm,71.816mm) on Top Layer And Pad Free-8(177.038mm,70.866mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7053mil|Location2.X=7224.449mil|Location1.Y=3028mil|Location2.Y=3158.386mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7053mil|Location2.X=7224.449mil|Location1.Y=3028mil|Location2.Y=3158.386mil|Absolute=True">Un-Routed Net Constraint: Net BAT_VCC Between Pad Free-8(180.467mm,78.232mm) on Bottom Layer And Pad Q3-3(183.015mm,79.822mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7133mil|Location2.X=7352.402mil|Location1.Y=3772.914mil|Location2.Y=3897mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7133mil|Location2.X=7352.402mil|Location1.Y=3772.914mil|Location2.Y=3897mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-8(182.499mm,97.663mm) on Top Layer And Pad U3-14(186.026mm,96.057mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7026.504mil|Location2.X=7527mil|Location1.Y=3731.504mil|Location2.Y=4017mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7026.504mil|Location2.X=7527mil|Location1.Y=3731.504mil|Location2.Y=4017mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad P1-1(179.324mm,95.631mm) on Multi-Layer And Pad Free-8(189.865mm,100.711mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7423mil|Location2.X=7688.496mil|Location1.Y=3836.504mil|Location2.Y=4017mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7423mil|Location2.X=7688.496mil|Location1.Y=3836.504mil|Location2.Y=4017mil|Absolute=True">Un-Routed Net Constraint: Net EXT_5V0 Between Pad Free-8(189.865mm,100.711mm) on Top Layer And Pad P2-1(194.437mm,98.298mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7261.504mil|Location2.X=7612mil|Location1.Y=2448mil|Location2.Y=2552mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7261.504mil|Location2.X=7612mil|Location1.Y=2448mil|Location2.Y=2552mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R7-1(185.293mm,63.699mm) on Top Layer And Pad Free-8(192.024mm,63.5mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7823mil|Location2.X=8008.417mil|Location1.Y=3460.638mil|Location2.Y=3742mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7823mil|Location2.X=8008.417mil|Location1.Y=3460.638mil|Location2.Y=3742mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Free-8(200.025mm,93.726mm) on Top Layer And Pad SW1-L2(203.013mm,88.501mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8003mil|Location2.X=8131.409mil|Location1.Y=3351.189mil|Location2.Y=3597mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8003mil|Location2.X=8131.409mil|Location1.Y=3351.189mil|Location2.Y=3597mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad Free-8(204.597mm,90.043mm) on Top Layer And Pad U4-2(205.337mm,85.471mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=7018.976mil|Location1.Y=3371.457mil|Location2.Y=3428.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=7018.976mil|Location1.Y=3371.457mil|Location2.Y=3428.701mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-3(172.825mm,86.362mm) on Multi-Layer And Pad J1-1(177.005mm,86.362mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918.425mil|Location2.X=7018.976mil|Location1.Y=3344.173mil|Location2.Y=3428.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918.425mil|Location2.X=7018.976mil|Location1.Y=3344.173mil|Location2.Y=3428.701mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-1(177.005mm,86.362mm) on Multi-Layer And Pad J1-A1-B12(177.58mm,85.242mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=7018.976mil|Location1.Y=3031.299mil|Location2.Y=3088.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=7018.976mil|Location1.Y=3031.299mil|Location2.Y=3088.543mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-4(172.825mm,77.722mm) on Multi-Layer And Pad J1-2(177.005mm,77.722mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918.425mil|Location2.X=7018.976mil|Location1.Y=3031.299mil|Location2.Y=3115.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6918.425mil|Location2.X=7018.976mil|Location1.Y=3031.299mil|Location2.Y=3115.827mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-2(177.005mm,77.722mm) on Multi-Layer And Pad J1-B1-A12(177.58mm,78.842mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7018.976mil|Location1.Y=2809.614mil|Location2.Y=3088.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7018.976mil|Location1.Y=2809.614mil|Location2.Y=3088.543mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q4-2(176.145mm,71.816mm) on Top Layer And Pad J1-2(177.005mm,77.722mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=6856.567mil|Location1.Y=3241.504mil|Location2.Y=3428.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=6856.567mil|Location1.Y=3241.504mil|Location2.Y=3428.701mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-3(172.825mm,86.362mm) on Multi-Layer And Pad R1-2(173.681mm,83.185mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=6856.567mil|Location1.Y=3031.299mil|Location2.Y=3213.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6759.764mil|Location2.X=6856.567mil|Location1.Y=3031.299mil|Location2.Y=3213.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-4(172.825mm,77.722mm) on Multi-Layer And Pad R4-2(173.681mm,80.772mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6968.701mil|Location2.X=7013.976mil|Location1.Y=3123.701mil|Location2.Y=3336.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6968.701mil|Location2.X=7013.976mil|Location1.Y=3123.701mil|Location2.Y=3336.299mil|Absolute=True">Un-Routed Net Constraint: Net USB_VCC Between Pad J1-B4-A9(177.58mm,79.642mm) on Top Layer And Pad J1-A4-B9(177.58mm,84.442mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6923.433mil|Location2.X=7013.976mil|Location1.Y=3241.504mil|Location2.Y=3308.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6923.433mil|Location2.X=7013.976mil|Location1.Y=3241.504mil|Location2.Y=3308.496mil|Absolute=True">Un-Routed Net Constraint: Net CC1 Between Pad R1-1(176.331mm,83.185mm) on Bottom Layer And Pad J1-A5(177.58mm,83.292mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6923.433mil|Location2.X=7013.976mil|Location1.Y=3146.504mil|Location2.Y=3213.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6923.433mil|Location2.X=7013.976mil|Location1.Y=3146.504mil|Location2.Y=3213.496mil|Absolute=True">Un-Routed Net Constraint: Net CC2 Between Pad R4-1(176.331mm,80.772mm) on Bottom Layer And Pad J1-B5(177.58mm,80.292mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7026.504mil|Location2.X=7166.567mil|Location1.Y=3616.504mil|Location2.Y=3698.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7026.504mil|Location2.X=7166.567mil|Location1.Y=3616.504mil|Location2.Y=3698.496mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad P1-2(179.324mm,93.091mm) on Multi-Layer And Pad R17-2(181.555mm,92.71mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7021.535mil|Location2.X=7193.496mil|Location1.Y=3444.102mil|Location2.Y=3603.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7021.535mil|Location2.X=7193.496mil|Location1.Y=3444.102mil|Location2.Y=3603.465mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-3(179.324mm,90.551mm) on Multi-Layer And Pad R15-1(181.864mm,87.956mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6888.473mil|Location2.X=7098.465mil|Location1.Y=3526.535mil|Location2.Y=3664.825mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6888.473mil|Location2.X=7098.465mil|Location1.Y=3526.535mil|Location2.Y=3664.825mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW3-1(175.834mm,92.11mm) on Top Layer And Pad P1-3(179.324mm,90.551mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7688.496mil|Location1.Y=3644.961mil|Location2.Y=3803.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7688.496mil|Location1.Y=3644.961mil|Location2.Y=3803.496mil|Absolute=True">Un-Routed Net Constraint: Net RXD Between Pad U3-6(191.926mm,92.807mm) on Bottom Layer And Pad P2-2(194.437mm,95.758mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7688.496mil|Location1.Y=3619.37mil|Location2.Y=3703.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=7688.496mil|Location1.Y=3619.37mil|Location2.Y=3703.496mil|Absolute=True">Un-Routed Net Constraint: Net TXD Between Pad U3-7(191.926mm,92.157mm) on Bottom Layer And Pad P2-3(194.437mm,93.218mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7308.433mil|Location2.X=7633.496mil|Location1.Y=3406.504mil|Location2.Y=3608.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7308.433mil|Location2.X=7633.496mil|Location1.Y=3406.504mil|Location2.Y=3608.496mil|Absolute=True">Un-Routed Net Constraint: Net SDA Between Pad R14-1(186.11mm,90.805mm) on Top Layer And Pad P3-1(193.04mm,87.376mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.504mil|Location2.X=7773.142mil|Location1.Y=3351.189mil|Location2.Y=3473.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.504mil|Location2.X=7773.142mil|Location1.Y=3351.189mil|Location2.Y=3473.496mil|Absolute=True">Un-Routed Net Constraint: Net SDA Between Pad P3-1(193.04mm,87.376mm) on Multi-Layer And Pad U4-15(196.237mm,85.471mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.504mil|Location2.X=7533.496mil|Location1.Y=3406.504mil|Location2.Y=3671.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7356.504mil|Location2.X=7533.496mil|Location1.Y=3406.504mil|Location2.Y=3671.567mil|Absolute=True">Un-Routed Net Constraint: Net SCL Between Pad R13-1(187.706mm,92.782mm) on Top Layer And Pad P3-2(190.5mm,87.376mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7466.504mil|Location2.X=7773.142mil|Location1.Y=3401.189mil|Location2.Y=3473.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7466.504mil|Location2.X=7773.142mil|Location1.Y=3401.189mil|Location2.Y=3473.496mil|Absolute=True">Un-Routed Net Constraint: Net SCL Between Pad P3-2(190.5mm,87.376mm) on Multi-Layer And Pad U4-16(196.237mm,86.741mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7126.504mil|Location2.X=7333.496mil|Location1.Y=3406.504mil|Location2.Y=3481.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7126.504mil|Location2.X=7333.496mil|Location1.Y=3406.504mil|Location2.Y=3481.567mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R15-1(181.864mm,87.956mm) on Bottom Layer And Pad P3-4(185.42mm,87.376mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7333.496mil|Location1.Y=3323.433mil|Location2.Y=3473.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7333.496mil|Location1.Y=3323.433mil|Location2.Y=3473.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1(184.785mm,84.891mm) on Bottom Layer And Pad P3-4(185.42mm,87.376mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7349.213mil|Location2.X=7693.583mil|Location1.Y=2705.866mil|Location2.Y=2744.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7349.213mil|Location2.X=7693.583mil|Location1.Y=2705.866mil|Location2.Y=2744.134mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad Q1-2(187.071mm,69.215mm) on Top Layer And Pad U1-3(195.092mm,69.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7371.504mil|Location2.X=7438.496mil|Location1.Y=3126.614mil|Location2.Y=3221.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7371.504mil|Location2.X=7438.496mil|Location1.Y=3126.614mil|Location2.Y=3221.567mil|Absolute=True">Un-Routed Net Constraint: Net Q3Gate Between Pad Q2-1(188.079mm,79.817mm) on Bottom Layer And Pad R3-2(188.087mm,81.352mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7255.866mil|Location2.X=7354.134mil|Location1.Y=3089.213mil|Location2.Y=3120.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7255.866mil|Location2.X=7354.134mil|Location1.Y=3089.213mil|Location2.Y=3120.984mil|Absolute=True">Un-Routed Net Constraint: Net Q1_to_Q3 Between Pad Q3-2(184.785mm,78.872mm) on Bottom Layer And Pad Q2-3(186.309mm,78.867mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7308.496mil|Location1.Y=3164.213mil|Location2.Y=3256.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7308.496mil|Location1.Y=3164.213mil|Location2.Y=3256.567mil|Absolute=True">Un-Routed Net Constraint: Net Q1Gate Between Pad Q3-1(184.785mm,80.772mm) on Bottom Layer And Pad R5-2(184.785mm,82.241mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7024.402mil|Location1.Y=2706.504mil|Location2.Y=2773.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6913.709mil|Location2.X=7024.402mil|Location1.Y=2706.504mil|Location2.Y=2773.496mil|Absolute=True">Un-Routed Net Constraint: Net Q4Gate Between Pad Q4-1(176.145mm,69.916mm) on Top Layer And Pad R12-2(177.944mm,69.596mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6839.102mil|Location2.X=6886.291mil|Location1.Y=2772.213mil|Location2.Y=2933.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6839.102mil|Location2.X=6886.291mil|Location1.Y=2772.213mil|Location2.Y=2933.496mil|Absolute=True">Un-Routed Net Constraint: Net NetQ4_3 Between Pad R10-2(174.189mm,73.66mm) on Bottom Layer And Pad Q4-3(174.375mm,70.866mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.699mil|Location2.X=7926.567mil|Location1.Y=2767.449mil|Location2.Y=2853.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7785.699mil|Location2.X=7926.567mil|Location1.Y=2767.449mil|Location2.Y=2853.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R11-1(197.993mm,70.527mm) on Top Layer And Pad R18-2(200.859mm,71.628mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.301mil|Location1.Y=2759.449mil|Location2.Y=2785.881mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.301mil|Location1.Y=2759.449mil|Location2.Y=2785.881mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-10(196.342mm,70.215mm) on Top Layer And Pad R11-1(197.993mm,70.527mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.301mil|Location1.Y=2720.079mil|Location2.Y=2754.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7804.301mil|Location1.Y=2720.079mil|Location2.Y=2754.216mil|Absolute=True">Un-Routed Net Constraint: Net FB Between Pad U1-8(196.342mm,69.215mm) on Top Layer And Pad R11-2(197.993mm,69.723mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6819.102mil|Location2.X=6856.567mil|Location1.Y=3146.504mil|Location2.Y=3308.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6819.102mil|Location2.X=6856.567mil|Location1.Y=3146.504mil|Location2.Y=3308.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R4-2(173.681mm,80.772mm) on Bottom Layer And Pad R1-2(173.681mm,83.185mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7091.268mil|Location2.X=7217.399mil|Location1.Y=2693.623mil|Location2.Y=2773.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7091.268mil|Location2.X=7217.399mil|Location1.Y=2693.623mil|Location2.Y=2773.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R12-1(180.594mm,69.596mm) on Top Layer And Pad U2-2(182.653mm,68.707mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7423.496mil|Location1.Y=3634.102mil|Location2.Y=3671.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7423.496mil|Location1.Y=3634.102mil|Location2.Y=3671.567mil|Absolute=True">Un-Routed Net Constraint: Net SCL Between Pad U3-9(186.026mm,92.807mm) on Bottom Layer And Pad R13-1(187.706mm,92.782mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7352.402mil|Location1.Y=3541.504mil|Location2.Y=3637.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7295.315mil|Location2.X=7352.402mil|Location1.Y=3541.504mil|Location2.Y=3637.086mil|Absolute=True">Un-Routed Net Constraint: Net SDA Between Pad U3-8(186.026mm,92.157mm) on Bottom Layer And Pad R14-1(186.11mm,90.805mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=7949.362mil|Location1.Y=2951.504mil|Location2.Y=3507.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=7949.362mil|Location1.Y=2951.504mil|Location2.Y=3507.945mil|Absolute=True">Un-Routed Net Constraint: Net NetR16_2 Between Pad R16-2(200.859mm,75.819mm) on Bottom Layer And Pad SW1-COM(201.513mm,88.501mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7233.433mil|Location2.X=7352.402mil|Location1.Y=3616.504mil|Location2.Y=3688.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7233.433mil|Location2.X=7352.402mil|Location1.Y=3616.504mil|Location2.Y=3688.268mil|Absolute=True">Un-Routed Net Constraint: Net UPDI Between Pad R17-1(184.205mm,92.71mm) on Bottom Layer And Pad U3-10(186.026mm,93.457mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=7926.567mil|Location1.Y=2786.504mil|Location2.Y=2938.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=7926.567mil|Location1.Y=2786.504mil|Location2.Y=2938.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R18-2(200.859mm,71.628mm) on Bottom Layer And Pad R19-2(200.859mm,73.787mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=8131.409mil|Location1.Y=2871.504mil|Location2.Y=3078.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7889.102mil|Location2.X=8131.409mil|Location1.Y=2871.504mil|Location2.Y=3078.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R19-2(200.859mm,73.787mm) on Bottom Layer And Pad U4-8(205.337mm,77.851mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8025.898mil|Location1.Y=3241.504mil|Location2.Y=3688.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8025.898mil|Location1.Y=3241.504mil|Location2.Y=3688.268mil|Absolute=True">Un-Routed Net Constraint: Net PA7 Between Pad U3-5(191.926mm,93.457mm) on Bottom Layer And Pad R20-1(203.382mm,83.185mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7988.433mil|Location2.X=8131.409mil|Location1.Y=3241.504mil|Location2.Y=3328.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7988.433mil|Location2.X=8131.409mil|Location1.Y=3241.504mil|Location2.Y=3328.811mil|Absolute=True">Un-Routed Net Constraint: Net PA7 Between Pad R20-1(203.382mm,83.185mm) on Top Layer And Pad U4-3(205.337mm,84.201mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7884.102mil|Location2.X=7924.402mil|Location1.Y=3241.504mil|Location2.Y=3478.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7884.102mil|Location2.X=7924.402mil|Location1.Y=3241.504mil|Location2.Y=3478.496mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad R20-2(200.732mm,83.185mm) on Top Layer And Pad R21-2(200.804mm,87.503mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8028.732mil|Location1.Y=3411.504mil|Location2.Y=3713.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8028.732mil|Location1.Y=3411.504mil|Location2.Y=3713.858mil|Absolute=True">Un-Routed Net Constraint: Net PA6 Between Pad U3-4(191.926mm,94.107mm) on Bottom Layer And Pad R21-1(203.454mm,87.503mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7991.268mil|Location2.X=8131.409mil|Location1.Y=3401.189mil|Location2.Y=3478.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7991.268mil|Location2.X=8131.409mil|Location1.Y=3401.189mil|Location2.Y=3478.496mil|Absolute=True">Un-Routed Net Constraint: Net PA6 Between Pad R21-1(203.454mm,87.503mm) on Top Layer And Pad U4-1(205.337mm,86.741mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7799.693mil|Location2.X=7924.402mil|Location1.Y=3411.504mil|Location2.Y=3507.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7799.693mil|Location2.X=7924.402mil|Location1.Y=3411.504mil|Location2.Y=3507.945mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad SW1-L1(198.513mm,88.501mm) on Bottom Layer And Pad R21-2(200.804mm,87.503mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7438.496mil|Location1.Y=3288.433mil|Location2.Y=3360.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7241.504mil|Location2.X=7438.496mil|Location1.Y=3288.433mil|Location2.Y=3360.898mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1(184.785mm,84.891mm) on Bottom Layer And Pad R3-1(188.087mm,84.002mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7252.601mil|Location2.X=7328.496mil|Location1.Y=2593.433mil|Location2.Y=2753.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7252.601mil|Location2.X=7328.496mil|Location1.Y=2593.433mil|Location2.Y=2753.779mil|Absolute=True">Un-Routed Net Constraint: Net PROG Between Pad U2-5(184.885mm,69.657mm) on Top Layer And Pad R7-2(185.293mm,66.349mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7600.699mil|Location2.X=7693.583mil|Location1.Y=2596.617mil|Location2.Y=2710.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7600.699mil|Location2.X=7693.583mil|Location1.Y=2596.617mil|Location2.Y=2710.236mil|Absolute=True">Un-Routed Net Constraint: Net PG Between Pad R9-2(193.294mm,66.188mm) on Top Layer And Pad U1-4(195.092mm,68.715mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3121.732mil|Location2.Y=3186.693mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3121.732mil|Location2.Y=3186.693mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-6(205.337mm,80.391mm) on Bottom Layer And Pad SW2-1(205.65mm,80.117mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.535mil|Location2.X=7773.142mil|Location1.Y=3197.323mil|Location2.Y=3228.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.535mil|Location2.X=7773.142mil|Location1.Y=3197.323mil|Location2.Y=3228.819mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad SW4-1(193.04mm,81.612mm) on Bottom Layer And Pad U4-12(196.237mm,81.661mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.535mil|Location2.X=8131.409mil|Location1.Y=3251.189mil|Location2.Y=3362.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7566.535mil|Location2.X=8131.409mil|Location1.Y=3251.189mil|Location2.Y=3362.677mil|Absolute=True">Un-Routed Net Constraint: Net RTC_RST Between Pad SW4-2(193.04mm,85.012mm) on Bottom Layer And Pad U4-4(205.337mm,82.931mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7693.583mil|Location1.Y=2739.764mil|Location2.Y=2769.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7693.583mil|Location1.Y=2739.764mil|Location2.Y=2769.291mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad U1-2(195.092mm,69.715mm) on Top Layer And Pad U1-1(195.092mm,70.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7742.795mil|Location1.Y=2739.764mil|Location2.Y=2769.291mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7742.795mil|Location1.Y=2739.764mil|Location2.Y=2769.291mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-9(196.342mm,69.715mm) on Top Layer And Pad U1-10(196.342mm,70.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7693.583mil|Location1.Y=2720.079mil|Location2.Y=2749.606mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7693.583mil|Location1.Y=2720.079mil|Location2.Y=2749.606mil|Absolute=True">Un-Routed Net Constraint: Net BUCK_IN Between Pad U1-3(195.092mm,69.215mm) on Top Layer And Pad U1-2(195.092mm,69.715mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7742.795mil|Location1.Y=2680.709mil|Location2.Y=2690.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7667.992mil|Location2.X=7742.795mil|Location1.Y=2680.709mil|Location2.Y=2690.551mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad U1-5(195.092mm,68.215mm) on Top Layer And Pad U1-6(196.342mm,68.215mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7742.795mil|Location1.Y=2680.709mil|Location2.Y=2710.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7717.205mil|Location2.X=7742.795mil|Location1.Y=2680.709mil|Location2.Y=2710.236mil|Absolute=True">Un-Routed Net Constraint: Net 3V3 Between Pad U1-6(196.342mm,68.215mm) on Top Layer And Pad U1-7(196.342mm,68.715mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6775.145mil|Location2.X=7352.402mil|Location1.Y=3503.988mil|Location2.Y=3765.039mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6775.145mil|Location2.X=7352.402mil|Location1.Y=3503.988mil|Location2.Y=3765.039mil|Absolute=True">Un-Routed Net Constraint: Net PA3 Between Via (172.539mm,89.451mm) from Top Layer to Bottom Layer And Pad U3-13(186.026mm,95.407mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8174.213mil|Location1.Y=3292.008mil|Location2.Y=3739.449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7527.598mil|Location2.X=8174.213mil|Location1.Y=3292.008mil|Location2.Y=3739.449mil|Absolute=True">Un-Routed Net Constraint: Net PA5 Between Pad U3-3(191.926mm,94.757mm) on Bottom Layer And Via (207.175mm,84.067mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3101.189mil|Location2.Y=3178.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3101.189mil|Location2.Y=3178.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-10(196.237mm,79.121mm) on Bottom Layer And Pad U4-11(196.237mm,80.391mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3051.189mil|Location2.Y=3128.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3051.189mil|Location2.Y=3128.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-9(196.237mm,77.851mm) on Bottom Layer And Pad U4-10(196.237mm,79.121mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3151.189mil|Location2.Y=3228.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3151.189mil|Location2.Y=3228.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-11(196.237mm,80.391mm) on Bottom Layer And Pad U4-12(196.237mm,81.661mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3201.189mil|Location2.Y=3278.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3201.189mil|Location2.Y=3278.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-12(196.237mm,81.661mm) on Bottom Layer And Pad U4-13(196.237mm,82.931mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3251.189mil|Location2.Y=3328.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7678.591mil|Location2.X=7773.142mil|Location1.Y=3251.189mil|Location2.Y=3328.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-13(196.237mm,82.931mm) on Bottom Layer And Pad U4-14(196.237mm,84.201mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3151.189mil|Location2.Y=3228.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3151.189mil|Location2.Y=3228.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-6(205.337mm,80.391mm) on Bottom Layer And Pad U4-5(205.337mm,81.661mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3101.189mil|Location2.Y=3178.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3101.189mil|Location2.Y=3178.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-7(205.337mm,79.121mm) on Bottom Layer And Pad U4-6(205.337mm,80.391mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3051.189mil|Location2.Y=3128.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8036.858mil|Location2.X=8131.409mil|Location1.Y=3051.189mil|Location2.Y=3128.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U4-8(205.337mm,77.851mm) on Bottom Layer And Pad U4-7(205.337mm,79.121mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDQ4FGPWIS5JNMIZMQ4QNATR25TBIB5IFF42ZODLOUJRDIAYXISPXL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Annular Ring (Minimum=0.152mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.236mil|Location2.X=6796.486mil|Location1.Y=3532.843mil|Location2.Y=3540.093mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6789.236mil|Location2.X=6796.486mil|Location1.Y=3532.843mil|Location2.Y=3540.093mil|Absolute=True">Minimum Annular Ring: (0.15mm &lt; 0.152mm) Via (172.539mm,89.451mm) from Top Layer to Bottom Layer (Annular Ring=0.15mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6868.961mil|Location2.X=6876.211mil|Location1.Y=3670.93mil|Location2.Y=3678.18mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6868.961mil|Location2.X=6876.211mil|Location1.Y=3670.93mil|Location2.Y=3678.18mil|Absolute=True">Minimum Annular Ring: (0.15mm &lt; 0.152mm) Via (174.564mm,92.959mm) from Top Layer to Bottom Layer (Annular Ring=0.15mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.871mil|Location2.X=8160.121mil|Location1.Y=3161.414mil|Location2.Y=3168.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.871mil|Location2.X=8160.121mil|Location1.Y=3161.414mil|Location2.Y=3168.664mil|Absolute=True">Minimum Annular Ring: (0.15mm &lt; 0.152mm) Via (207.175mm,80.017mm) from Top Layer to Bottom Layer (Annular Ring=0.15mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.871mil|Location2.X=8160.121mil|Location1.Y=3320.863mil|Location2.Y=3328.113mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.871mil|Location2.X=8160.121mil|Location1.Y=3320.863mil|Location2.Y=3328.113mil|Absolute=True">Minimum Annular Ring: (0.15mm &lt; 0.152mm) Via (207.175mm,84.067mm) from Top Layer to Bottom Layer (Annular Ring=0.15mm) On (Top Layer)</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDUMUGK5MCDRSYLMTCRETBRK5ELDMPVZADVAZ25MCG4WJ4OOFC13AM"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6771.645mil|Location2.X=6822.917mil|Location1.Y=3500.488mil|Location2.Y=3580.955mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6771.645mil|Location2.X=6822.917mil|Location1.Y=3500.488mil|Location2.Y=3580.955mil|Absolute=True">Net Antennae: Via (172.539mm,89.451mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.28mil|Location2.X=8186.551mil|Location1.Y=3288.508mil|Location2.Y=3368.975mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\17045\Desktop\Repositories\LiPo-Powered-ATtiny-Watch\PCB\LiPo ATtiny Watch\PCB.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.28mil|Location2.X=8186.551mil|Location1.Y=3288.508mil|Location2.Y=3368.975mil|Absolute=True">Net Antennae: Via (207.175mm,84.067mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
