@@ -1,6 +1,6 @@
 # 3224 LiPo Watch
 
-This device is a small wrist watch rechargeable via USB-C that displays the time on a small 0.49" OLED display when woken by the user. The device's time can be configured by the user using two buttons (TICK and SET) and features a high-accuracy RTC IC to accurately keep track of the time.
+This device is a small wrist watch rechargeable via USB-C that displays the time on a small 0.49" OLED display when woken by the user. The device's time can be configured by the user using two buttons (TICK and SET) and features a high-accuracy RTC IC to accurately keep track of the time. The device is run and managed by an Atmel ATtiny3224 microcontroller.
 
 ## General Documentation
 
