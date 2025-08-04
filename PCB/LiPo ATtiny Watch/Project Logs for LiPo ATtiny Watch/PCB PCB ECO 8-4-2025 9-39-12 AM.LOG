@@ -1,0 +1,10 @@
+Change Component Designator: OldDesignator=P5 NewDesignator=P4
+Change Component Designator: OldDesignator=P? NewDesignator=P2
+Change Component Designator: OldDesignator=P? NewDesignator=P3
+Change Component Designator: OldDesignator=R16 NewDesignator=R15
+Change Component Designator: OldDesignator=R17 NewDesignator=R16
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Change Net Name : Old Net Name=NetP?_1 New Net Name=NetP3_1
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=Microcontroller Member=Component P2 61300311121
