@@ -1,7 +1,0 @@
-Removed Pin From Net: NetName=RXD Pin=P2-1
-Removed Pin From Net: NetName=TXD Pin=P2-2
-Add Pin To Net: Unknown Pin: Pin B1-0
-Add Pin To Net: Unknown Pin: Pin B1-1
-Added Pin To Net: NetName=TXD Pin=P2-1
-Added Pin To Net: NetName=RXD Pin=P2-2
-Add Class Member: Failed to add class member : Component B1 LiPo

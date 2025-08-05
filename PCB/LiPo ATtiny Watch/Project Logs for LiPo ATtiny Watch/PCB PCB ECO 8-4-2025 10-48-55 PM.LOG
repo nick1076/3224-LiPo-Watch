@@ -1,5 +1,0 @@
-Removed Pin From Net: NetName=PA2 Pin=SW1-COM
-Add Pin To Net: Unknown Pin: Pin B1-0
-Add Pin To Net: Unknown Pin: Pin B1-1
-Added Pin To Net: NetName=PA3 Pin=SW1-COM
-Add Class Member: Failed to add class member : Component B1 LiPo
