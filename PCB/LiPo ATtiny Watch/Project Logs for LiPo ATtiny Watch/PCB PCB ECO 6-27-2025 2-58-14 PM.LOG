@@ -1,0 +1,18 @@
+Added Component: Designator=U2(SIL0010D-MFG)
+Add component (AddParameter): Name = "Mfr_Name"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RefDes"; Value = "RefDes"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "TYPE"; Value = "TYPE"; VariantName = "[No Variations]"
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Added Pin To Net: NetName=BUCK_IN Pin=U2-1
+Added Pin To Net: NetName=BUCK_IN Pin=U2-2
+Added Pin To Net: NetName=BUCK_IN Pin=U2-3
+Added Pin To Net: NetName=PG Pin=U2-4
+Added Pin To Net: NetName=3V3 Pin=U2-5
+Added Pin To Net: NetName=3V3 Pin=U2-6
+Added Pin To Net: NetName=3V3 Pin=U2-7
+Added Pin To Net: NetName=FB Pin=U2-8
+Added Pin To Net: NetName=GND Pin=U2-9
+Added Pin To Net: NetName=GND Pin=U2-10
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=LiPo BMS Member=Component U2 TPSM82823SILR

@@ -1,0 +1,38 @@
+Removed Member From Class: ClassName=Microcontroller Member=D4
+Removed Member From Class: ClassName=LiPo BMS Member=D9
+Removed Member From Class: ClassName=LiPo BMS Member=D11
+Removed Member From Class: ClassName=Microcontroller Member=R2
+Removed Member From Class: ClassName=Microcontroller Member=R3
+Removed Member From Class: ClassName=Microcontroller Member=R10
+Removed Member From Class: ClassName=Microcontroller Member=R12
+Removed Member From Class: ClassName=RTC IC Member=SW2
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=LiPo BMS Member=Component C2 Cff
+Added Member To Class: ClassName=LiPo BMS Member=Component C4 4.7µF
+Added Member To Class: ClassName=LiPo BMS Member=Component D2 SS14-E3/61T
+Added Member To Class: ClassName=LiPo BMS Member=Component D3 1N4148WT-7
+Added Member To Class: ClassName=LiPo BMS Member=Component D5 1N4148WT-7
+Added Member To Class: ClassName=LiPo BMS Member=Component D6 150120YS75000
+Added Member To Class: ClassName=LiPo BMS Member=Component D8 1N4148WT-7
+Added Member To Class: ClassName=Microcontroller Member=Component D10 150120GS75000
+Added Member To Class: ClassName=Microcontroller Member=Component D12 150120GS75000
+Added Member To Class: ClassName=LiPo BMS Member=Component Q1 IRLML6402TRPBF
+Added Member To Class: ClassName=LiPo BMS Member=Component R3 10kO
+Added Member To Class: ClassName=LiPo BMS Member=Component R5 10kO
+Added Member To Class: ClassName=LiPo BMS Member=Component R7 33kO
+Added Member To Class: ClassName=LiPo BMS Member=Component R8 1kO
+Added Member To Class: ClassName=Microcontroller Member=Component R13 10kO
+Added Member To Class: ClassName=Microcontroller Member=Component R14 10kO
+Added Member To Class: ClassName=Microcontroller Member=Component R15 620O
+Added Member To Class: ClassName=Microcontroller Member=Component R16 620O
+Added Member To Class: ClassName=Microcontroller Member=Component R17 1kO
+Added Member To Class: ClassName=Microcontroller Member=Component R18 1kO
+Added Member To Class: ClassName=Microcontroller Member=Component SW1 450404015514
+Added Member To Class: ClassName=RTC IC Member=Component SW3 RST
+Added Member To Class: ClassName=LiPo BMS Member=Component U2 MCP73831T-2ACI/OT

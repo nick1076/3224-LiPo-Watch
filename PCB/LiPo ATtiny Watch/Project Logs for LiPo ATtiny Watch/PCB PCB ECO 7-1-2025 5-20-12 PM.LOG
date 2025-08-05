@@ -1,0 +1,7 @@
+Removed Member From Class: ClassName=Microcontroller Member=SW4
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Change Net Color : Old Net Color=RGB(158, 161, 117) New Net Color=RGB(0, 163, 110)
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=Microcontroller Member=Component SW3 EVQ-9P701P

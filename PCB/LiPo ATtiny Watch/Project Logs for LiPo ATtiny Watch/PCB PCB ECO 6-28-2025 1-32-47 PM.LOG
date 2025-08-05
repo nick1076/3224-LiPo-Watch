@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=NetR12_2 Pin=S1-1A
+Removed Pin From Net: NetName=GND Pin=S1-1B
+Removed Member From Class: ClassName=Microcontroller Member=S1
+Add Pin To Net: Unknown Pin: Pin B1-0
+Add Pin To Net: Unknown Pin: Pin B1-1
+Added Pin To Net: NetName=GND Pin=SW?-1
+Added Pin To Net: NetName=PA2 Pin=SW?-2'
+Added Pin To Net: NetName=NetR12_2 Pin=SW?-COM
+Added Pin To Net: NetName=GND Pin=SW?-L2
+Add Class Member: Failed to add class member : Component B1 LiPo
+Added Member To Class: ClassName=Microcontroller Member=Component SW? EVQ-9P701P
