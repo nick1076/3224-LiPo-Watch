@@ -169,7 +169,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document8]
-DocumentPath=..\Altium Libraries\Disp\Copy of Amazon OLED Display Module.PcbLib
+DocumentPath=..\Altium Libraries\Disp\OLED_Library.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
