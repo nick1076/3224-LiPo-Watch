@@ -25,7 +25,7 @@ Front:
 EXT // 5V0 (External VCC, 5V Expected)
 3V3 (Buck converted 3.3V, 3.3V Expected)
 USB // 5V0 (USB-C Sourced VCC, 5V Expected)
-Ground (x2)
+Ground (x4, mounting holes)
 
 Back:
 BAT + (LiPo Battery Positive Terminal, 3.2V to 4.2V Expected)
@@ -45,11 +45,17 @@ DEBUG INDICATORS - Slide Switch - enables debug indicator LEDs on board when tur
 *Headers*
 
 P1 (PROG - Programming Header)
-1 - EXT - External 5V, from programmer
-2 - UPDI - UPDI line from programmer
-3 - GND - Ground line from programmer
+1 - UPDI - UPDI line from programmer
+2 - GND - Ground line from programmer
 P2 (UART - UART Header)
-1 - EXT - External 5V, from FTDI
+1 - TXD - MCU TX
 2 - RXD - MCU RX
-3 - TXD - MCU TX
-4 - GND - Ground line from FTDI
+3 - GND - Ground line from FTDI
+
+# V1 Design
+
+The V1 design featured a rounded PCB with a 0.49" OLED display, 64x32 pixels.
+
+# V2 Design
+
+Due to the 0.49" OLED failing to work properly with the 3224 MCU, the board had to be redesigned to host a larger 128x64 pixel OLED display, turning into a more square-like yet rounded PCB.
