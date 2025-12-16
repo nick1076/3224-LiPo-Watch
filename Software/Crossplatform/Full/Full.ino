@@ -33,6 +33,15 @@ byte setIndex = 0;
 byte currentSetHour = 0;
 byte currentSetMinute = 0;
 
+//Time (in increments of 10ms) between each uptick in current number
+int setMode_increaseTimeCooldown = 5;
+
+//Time (in increments of 10ms) between each index (hour to minute to exiting set mode)
+int setMode_switchSetIndexCooldown = 8;
+
+//Pixel offset of displayed data if hour time is double digits
+int xDualDecimalHourOffset = -10;
+
 void setup () {
     Serial.begin(57600);
     Wire.begin();
@@ -58,8 +67,68 @@ void setup () {
 
     delay(500);
 
-    SetClock(14, 46);
+    SetClock(12, 0);
     Serial.println("Watch Ready!");
+}
+
+//Display info on watch screen
+void DisplayText(String text, int x, int y, int size, bool clear = true){
+  if (clear){
+    display.clearDisplay();
+  }
+  display.setTextSize(size);
+  display.setTextColor(WHITE);
+  display.setCursor(x, y);
+  display.println(text);
+  display.display(); 
+}
+
+//Display time on OLED
+void DisplayTime(int x, int y, int size, bool showDots, bool updateDisplay = true){
+  display.clearDisplay();
+  display.setTextSize(size);
+  display.setTextColor(WHITE);
+
+  if (myRTC.getHour(h12Flag, pmFlag) > 12){
+    //Check if double digit hour, if so, move cursor X to the left some more
+    if (myRTC.getHour(h12Flag, pmFlag)-12>9){
+      display.setCursor(x+xDualDecimalHourOffset, y);
+    }
+    else{
+      display.setCursor(x, y);
+    }
+  }
+  else{
+    if (myRTC.getHour(h12Flag, pmFlag) > 9){
+      display.setCursor(x+xDualDecimalHourOffset, y);
+    }
+    else{
+      display.setCursor(x, y);
+    }
+  }
+
+  if (myRTC.getHour(h12Flag, pmFlag) > 12){
+    display.print(myRTC.getHour(h12Flag, pmFlag)-12, DEC);
+  }
+  else{
+    display.print(myRTC.getHour(h12Flag, pmFlag), DEC);
+  }
+  if (showDots){
+    display.print(":");
+  }
+  else{
+    display.print(" ");
+  }
+  if (myRTC.getMinute() < 10){
+    display.print("0");
+    display.println(myRTC.getMinute(), DEC);
+  }
+  else{
+    display.println(myRTC.getMinute(), DEC);
+  }
+
+  if (!updateDisplay) { return; }
+  display.display(); 
 }
 
 void loop () {
@@ -77,10 +146,32 @@ void loop () {
   }
 
   if (setMode){
-    DisplayTime(30, 20, 3, true);
+    DisplayTime(30, 20, 3, true, false);
+
+    int xOffset = 0;
+
+    if (myRTC.getHour(h12Flag, pmFlag) > 12){
+      //Check if double digit hour, if so, move cursor X to the left some more
+      if (myRTC.getHour(h12Flag, pmFlag)-12>9){
+        xOffset+=xDualDecimalHourOffset;
+      }
+    }
+    else{
+      if (myRTC.getHour(h12Flag, pmFlag) > 9){
+        xOffset+=xDualDecimalHourOffset;
+      }
+    }
+    
+    if (setIndex == 0){
+      DisplayText("H", 50+xOffset, 50, 2, false);
+    }
+    else{
+      DisplayText("M", 50+xOffset, 50, 2, false);
+    }
+    
     parallelTick++;
     awake = false;
-    if (digitalRead(WAKE_INPUT) == LOW && parallelTick >= 10){
+    if (digitalRead(WAKE_INPUT) == LOW && parallelTick >= setMode_increaseTimeCooldown){
       parallelTick = 0;
 
       //Hour slot
@@ -107,7 +198,7 @@ void loop () {
     }
 
     //If user hits set button again after cooldown
-    if (digitalRead(SET_INPUT) == LOW && tick >= 25){
+    if (digitalRead(SET_INPUT) == LOW && tick >= setMode_switchSetIndexCooldown){
       tick=0;
       setIndex++;
 
@@ -179,7 +270,6 @@ void loop () {
   } else {
     Serial.println(" 24h");
   }
-  
 }
 
 //Set current clock hour and minute
@@ -193,53 +283,6 @@ void SetClock(byte hour, byte minute){
     myRTC.setHour(hour);
     myRTC.setMinute(minute);
     myRTC.setSecond(0);
-}
-
-//Display time on OLED
-void DisplayTime(int x, int y, int size, bool showDots){
-  display.clearDisplay();
-  display.setTextSize(size);
-  display.setTextColor(WHITE);
-  display.setCursor(x, y);
-
-
-  if (myRTC.getHour(h12Flag, pmFlag) > 12){
-    display.print(myRTC.getHour(h12Flag, pmFlag)-12, DEC);
-  }
-  else{
-    if (myRTC.getHour(h12Flag, pmFlag) > 10){
-      display.print(" ");
-      display.print(myRTC.getHour(h12Flag, pmFlag), DEC);
-    }
-    else{
-      display.print(myRTC.getHour(h12Flag, pmFlag), DEC);
-    }
-  }
-  if (showDots){
-    display.print(":");
-  }
-  else{
-    display.print(" ");
-  }
-  if (myRTC.getMinute() < 10){
-    display.print("0");
-    display.println(myRTC.getMinute(), DEC);
-  }
-  else{
-    display.println(myRTC.getMinute(), DEC);
-  }
-  
-  display.display(); 
-}
-
-//Display info on watch screen
-void Display(String text, int x, int y, int size){
-  display.clearDisplay();
-  display.setTextSize(size);
-  display.setTextColor(WHITE);
-  display.setCursor(x, y);
-  display.println(text);
-  display.display(); 
 }
 
 //Clear watch screen
