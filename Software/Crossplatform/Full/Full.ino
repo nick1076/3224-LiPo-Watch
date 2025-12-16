@@ -9,6 +9,8 @@
 #define SCREEN_HEIGHT 64 //Height of display used
 #define WAKE_INPUT 1 //Wake Button Input
 #define SET_INPUT 9 //Set Button Input
+#define IND_ENA_INPUT 10 //Set Button Input
+#define LED_BUILTIN_OUTPUT 8 //Set Button Input
 
 bool awake = false; //Tracks if screen is currently awake
 bool setMode = false; //Tracks if watch is currently in SET mode (for setting time)
@@ -48,8 +50,20 @@ void setup () {
 
     pinMode(WAKE_INPUT, INPUT_PULLUP);
     pinMode(SET_INPUT, INPUT_PULLUP);
+    pinMode(IND_ENA_INPUT, INPUT_PULLUP);
+    pinMode(LED_BUILTIN_OUTPUT, INPUT_PULLUP);
 
-    delay(500);
+    delay(100);
+    
+    digitalWrite(LED_BUILTIN_OUTPUT, HIGH);
+    delay(100);
+    digitalWrite(LED_BUILTIN_OUTPUT, LOW);
+    delay(100);
+    digitalWrite(LED_BUILTIN_OUTPUT, HIGH);
+    delay(100);
+    digitalWrite(LED_BUILTIN_OUTPUT, LOW);
+
+    delay(100);
     
     Serial.println("Initializing...");
 
@@ -134,6 +148,18 @@ void DisplayTime(int x, int y, int size, bool showDots, bool updateDisplay = tru
 void loop () {
   delay(10); //10 ms delay per tick
   tick++;
+  bool isDebugMode = false;
+
+  if (digitalRead(IND_ENA_INPUT) == LOW){
+    isDebugMode=true;
+  }
+  else{
+    isDebugMode=false;
+  }
+
+  if (!isDebugMode){
+    digitalWrite(LED_BUILTIN_OUTPUT, LOW);
+  }
 
   if (digitalRead(SET_INPUT) == LOW && !setMode){
     setMode = true;
